@@ -1,4 +1,4 @@
-function  value = BellmanEq(kprime)
+function  value = BellmanEqT(kprime)
 
 global beta gamma alpha delta capital vfcn kgrid
 %global beta gamma alpha capital val_fcn kgrid
@@ -16,11 +16,14 @@ else
     util = -10000.0;
 end
 
+% 最終期の価値関数＝消費から得られる効用
+vnext = CRRA(kprime^alpha, gamma);
+
 % 次期の価値関数を線形補間
 % vnext = interp1(kgrid, vfcn, kprime, 'linear', 'extrap');
 
 % 次期の価値関数をスプライン補間
-vnext = interp1(kgrid, vfcn, kprime, 'spline');
+% vnext = interp1(kgrid, vfcn, kprime, 'spline');
 
 value = util + beta.*vnext;
 
